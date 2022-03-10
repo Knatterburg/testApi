@@ -22,7 +22,6 @@ func greet(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", greet)
 	http.ListenAndServe(":8080", http.HandlerFunc(redirect))
-	http.ListenAndServeTLS(":8081", "/etc/letsencrypt/live/www.knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/www.knatterburg.com/privkey.pem", nil)
+	http.ListenAndServeTLS(":8081", "/etc/letsencrypt/live/www.knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/www.knatterburg.com/privkey.pem", http.HandlerFunc(greet))
 }
