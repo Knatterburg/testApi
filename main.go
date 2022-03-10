@@ -24,7 +24,7 @@ func greet(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	go http.ListenAndServe("knatterburg.com:8080", http.HandlerFunc(greet))
+	go http.ListenAndServe("knatterburg.com:8080", http.HandlerFunc(redirect))
 	r := mux.NewRouter()
 	r.HandleFunc("/", greet)
 	err := http.ListenAndServeTLS(":8443", "/etc/letsencrypt/live/knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/knatterburg.com/privkey.pem", r)
