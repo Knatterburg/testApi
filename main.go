@@ -27,5 +27,8 @@ func main() {
 	go http.ListenAndServe(":8080", http.HandlerFunc(redirect))
 	r := mux.NewRouter()
 	r.HandleFunc("/", greet)
-	http.ListenAndServeTLS(":8443", "/etc/letsencrypt/live/knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/knatterburg.com/privkey.pem", r)
+	err := http.ListenAndServeTLS(":8443", "/etc/letsencrypt/live/knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/knatterburg.com/privkey.pem", r)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 }
