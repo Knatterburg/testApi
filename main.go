@@ -22,6 +22,7 @@ func greet(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("TEST")
 	http.ListenAndServe("knatterburg.com:8080", http.HandlerFunc(greet))
 	// r := mux.NewRouter()
 	// r.HandleFunc("/", greet)
