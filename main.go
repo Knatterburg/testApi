@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 func redirect(w http.ResponseWriter, r *http.Request) {
@@ -22,12 +24,11 @@ func greet(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("TEST")
-	http.ListenAndServe("knatterburg.com:8080", http.HandlerFunc(greet))
-	// r := mux.NewRouter()
-	// r.HandleFunc("/", greet)
-	// err := http.ListenAndServeTLS(":8443", "/etc/letsencrypt/live/knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/knatterburg.com/privkey.pem", r)
-	// if err != nil {
-	// 	log.Fatal(err.Error())
-	// }
+	go http.ListenAndServe("knatterburg.com:8080", http.HandlerFunc(greet))
+	r := mux.NewRouter()
+	r.HandleFunc("/", greet)
+	err := http.ListenAndServeTLS(":8443", "/etc/letsencrypt/live/knatterburg.com/fullchain.pem", "/etc/letsencrypt/live/knatterburg.com/privkey.pem", r)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 }
